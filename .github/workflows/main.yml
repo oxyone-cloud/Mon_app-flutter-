@@ -29,9 +29,14 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
+      - name: Rename APK with date and time
+        run: |
+          DATE=$(date +'%Y-%m-%d-%Hh%M')
+          mv build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/app-release-$DATE.apk
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: flutter-apk
-          path: build/app/outputs/apk/release/app-release.apk
+          path: build/app/outputs/apk/release/app-release-*.apk
 
